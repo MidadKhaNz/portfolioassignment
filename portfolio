@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midad Khan — Portfolio</title>
+    <meta name="description" content="Portfolio of Midad Khan, Software Engineering student and Founder & CEO, MNEX Group LTD (UK).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* —— Distinct layout: fixed left sidebar header + right scrollable sections —— */
+        :root {
+            --bg: #fcfcfe;
+            /* paper */
+            --ink: #0b1220;
+            /* text */
+            --muted: #5b6474;
+            /* secondary */
+            --edge: #e6e8f0;
+            /* borders */
+            --card: #ffffff;
+            /* surfaces */
+            --accent: #8b5cf6;
+            /* violet */
+            --cyan: #06b6d4;
+            /* cyan */
+            --r: 16px;
+            --w: 1040px;
+            /* max content width */
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        /* Shell */
+        .shell {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100dvh;
+        }
+
+        /* Sidebar = HEADER */
+        header {
+            position: sticky;
+            top: 0;
+            align-self: start;
+            height: 100dvh;
+            border-right: 1px solid var(--edge);
+            background: linear-gradient(180deg, #fbfbff 0%, #fff 100%);
+        }
+
+        .side {
+            padding: 28px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            height: 100%;
+        }
+
+        .me {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .me img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--edge)
+        }
+
+        .name {
+            font-weight: 700
+        }
+
+        .role {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px
+        }
+
+        .nav a {
+            color: var(--ink);
+            padding: 10px 12px;
+            border-radius: 10px
+        }
+
+        .nav a:hover {
+            background: #f2f3f8
+        }
+
+        .cta {
+            margin-top: auto;
+            display: grid;
+            gap: 10px
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700
+        }
+
+        .btn.alt {
+            background: #eef2ff;
+            color: #4338ca
+        }
+
+        /* Content column */
+        main {
+            max-width: var(--w);
+            padding: 48px 24px;
+            margin: 0 auto
+        }
+
+        section {
+            margin-bottom: 56px
+        }
+
+        h1,
+        h2 {
+            margin: 0 0 10px
+        }
+
+        h2 {
+            font-size: clamp(22px, 3.2vw, 28px)
+        }
+
+        .kicker {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            font-weight: 700;
+            font-size: 12px
+        }
+
+        .lead {
+            color: var(--muted)
+        }
+
+        /* About block as split card */
+        .about-card {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+            padding: 18px;
+            border: 1px solid var(--edge);
+            background: var(--card);
+            border-radius: var(--r)
+        }
+
+        .about-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--edge)
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px
+        }
+
+        .tag {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #f3f4f6;
+            border: 1px solid var(--edge)
+        }
+
+        /* Skills presented as two columns of small cards (no progress bars) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px
+        }
+
+        .skill {
+            background: var(--card);
+            border: 1px solid var(--edge);
+            border-radius: 14px;
+            padding: 12px
+        }
+
+        .skill h3 {
+            margin: 0 0 6px;
+            font-size: 15px
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px
+        }
+
+        .pill {
+            border: 1px dashed var(--edge);
+            padding: 6px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #fff
+        }
+
+        /* Contact panel */
+        .contact-card {
+            background: linear-gradient(180deg, #ffffff, #f7fbff);
+            border: 1px solid var(--edge);
+            border-radius: var(--r);
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
+
+        .field {
+            display: grid;
+            gap: 6px
+        }
+
+        label {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--edge);
+            background: #fff;
+            font: inherit;
+            color: var(--ink)
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--edge);
+            color: var(--muted);
+            padding: 18px 24px;
+            font-size: 14px
+        }
+
+        /* Responsive */
+        @media (max-width:960px) {
+            .shell {
+                grid-template-columns: 1fr
+            }
+
+            header {
+                position: relative;
+                height: auto
+            }
+
+            .nav {
+                flex-direction: row;
+                flex-wrap: wrap
+            }
+
+            .cta {
+                margin-top: 0
+            }
+
+            .about-card {
+                grid-template-columns: 1fr
+            }
+
+            .contact-card {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <!-- HEADER (left sidebar) -->
+        <header id="header">
+            <div class="side">
+                <div class="me">
+                    <img src="midad.jpeg" alt="Portrait of Midad Khan">
+                    <div>
+                        <div class="name">Midad Khan</div>
+                        <div class="role">Founder & CEO — MNEX Group LTD (UK)</div>
+                    </div>
+                </div>
+                <nav class="nav" aria-label="Primary">
+                    <a href="#about">About me</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <div class="cta">
+                    <a class="btn" href="#contact">Hire me</a>
+                    <a class="btn alt" href="mailto:admin@mnexgroup.com">admin@mnexgroup.com</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT (right column) -->
+        <main>
+            <!-- Intro (small headline block) -->
+            <section aria-labelledby="intro-title">
+                <p class="kicker" id="intro-title">Software Engineering Student</p>
+                <h1>Clean code. Useful products. Clear stories.</h1>
+                <p class="lead">I design simple web experiences and lightweight automations, and I produce cinematic product content. Based in Sylhet, Bangladesh.</p>
+            </section>
+
+            <!-- ABOUT -->
+            <section id="about" aria-labelledby="about-title">
+                <h2 id="about-title">About me</h2>
+                <div class="about-card">
+                    <div>
+                        <p>Founder & CEO of <strong>MNEX Group LTD (UK)</strong>. I like building things that work without drama — small, reliable, and well-finished. MNEX is my practical ecosystem: <strong>MNEX ARC</strong> for software and automation, and <strong>MNEX Visual</strong> for creative production.</p>
+                        <p>Right now, I’m focusing on clean UI, performance, and sensible storytelling that helps teams launch faster.</p>
+                        <div class="tags">
+                            <span class="tag">Frontend</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Video Editing</span>
+                            <span class="tag">3D (basics)</span>
+                        </div>
+                    </div>
+                    <img src="midad.jpeg" alt="Formal portrait of Midad Khan">
+                </div>
+            </section>
+
+            <!-- SKILLS (carded, no progress bars) -->
+            <section id="skills" aria-labelledby="skills-title">
+                <h2 id="skills-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill">
+                        <h3>Web</h3>
+                        <div class="stack">
+                            <span class="pill">HTML</span>
+                            <span class="pill">CSS</span>
+                            <span class="pill">Responsive UI</span>
+                            <span class="pill">Accessibility</span>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <h3>JavaScript (basics)</h3>
+                        <div class="stack">
+                            <span class="pill">DOM</span>
+                            <span class="pill">Fetch</span>
+                            <span class="pill">ES Modules</span>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <h3>Editing</h3>
+                        <div class="stack">
+                            <span class="pill">Premiere Pro</span>
+                            <span class="pill">After Effects</span>
+                            <span class="pill">DaVinci Resolve</span>
+                        </div>
+                    </div>
+                    <div class="skill">
+                        <h3>Production</h3>
+                        <div class="stack">
+                            <span class="pill">Storyboarding</span>
+                            <span class="pill">Voice-over</span>
+                            <span class="pill">Color basics</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact" aria-labelledby="contact-title">
+                <h2 id="contact-title">Contact</h2>
+                <div class="contact-card">
+                    <form action="mailto:admin@mnexgroup.com" method="post" enctype="text/plain">
+                        <div class="field">
+                            <label for="name">Your name</label>
+                            <input id="name" name="name" type="text" placeholder="Jane Doe" required>
+                        </div>
+                        <div class="field">
+                            <label for="email">Your email</label>
+                            <input id="email" name="email" type="email" placeholder="jane@email.com" required>
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button class="btn" type="submit">Send</button>
+                    </form>
+                    <div class="field">
+                        <p class="lead"><strong>Email:</strong> <a href="mailto:admin@mnexgroup.com">admin@mnexgroup.com</a></p>
+                        <p class="lead"><strong>Location:</strong> Sylhet, Bangladesh</p>
+                        <p class="lead">LinkedIn/GitHub links can be added here.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer role="contentinfo">
+                © 2025 Midad Khan — Built with only HTML & CSS
+            </footer>
+        </main>
+    </div>
+</body>
+
+</html>
